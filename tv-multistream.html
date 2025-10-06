@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>TV Multi-Stream Demo</title>
+<style>
+body {
+    background: #111;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 10px;
+    text-align: center;
+}
+h1 {
+    color: #4CAF50;
+    margin-bottom: 20px;
+}
+#player {
+    width: 90%;
+    max-width: 640px;
+    height: 360px;
+    margin: 0 auto;
+    display: block;
+    border: 3px solid #4CAF50;
+    border-radius: 12px;
+    background: #000;
+}
+#streams {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
+}
+.card {
+    width: 160px;
+    background: #222;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+.card:hover {
+    transform: scale(1.05);
+}
+.card img {
+    width: 100%;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+.card h4 {
+    margin: 6px 0 0;
+    font-size: 14px;
+}
+.card p {
+    margin: 4px 0 0;
+    font-size: 12px;
+    color: #ccc;
+}
+</style>
+</head>
+<body>
+
+<h1>📺 TV Multi-Stream Demo</h1>
+
+<video id="videoPlayer" controls autoplay></video>
+
+<div id="streams"></div>
+
+<script>
+// Liste des vidéos (flux)
+const STREAMS = [
+    {
+        title: "Documentary",
+        url: "https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        thumb: "https://picsum.photos/seed/docu/320/180",
+        description: "Sample documentary"
+    },
+    {
+        title: "Cartoon",
+        url: "https://storage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+        thumb: "https://picsum.photos/seed/cartoon/320/180",
+        description: "Sample cartoon"
+    },
+    {
+        title: "Talk Show",
+        url: "https://storage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
+        thumb: "https://picsum.photos/seed/talk/320/180",
+        description: "Sample talk show"
+    },
+    {
+        title: "Big Buck Bunny",
+        url: "https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        thumb: "https://picsum.photos/seed/bbb/320/180",
+        description: "Another demo video"
+    },
+    {
+        title: "For Bigger Blazes",
+        url: "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+        thumb: "https://picsum.photos/seed/blazes/320/180",
+        description: "Sample action clip"
+    }
+];
+
+// Création de lecteurs vidéo cachés pour chaque flux
+STREAMS.forEach(stream => {
+    const vid = document.createElement('video');
+    vid.src = stream.url;
+    vid.preload = "auto";
+    vid.muted = true; // pour autoplay sans interaction
+    vid.play();
+    stream.hiddenPlayer = vid;
+});
+
+const container = document.getElementById('streams');
+const mainPlayer = document.getElementById('videoPlayer');
+
+// Fonction pour afficher un flux et continuer depuis le temps courant
+function playStream(index) {
+    const stream = STREAMS[index];
+    mainPlayer.src = stream.url;
+    mainPlayer.currentTime = stream.hiddenPlayer.currentTime; // reprend là où le flux caché est
+    mainPlayer.play();
+}
+
+// Génération des miniatures
+STREAMS.forEach((stream, index) => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+        <img src="${stream.thumb}" alt="${stream.title}">
+        <h4>${stream.title}</h4>
+        <p>${stream.description}</p>
+    `;
+    card.onclick = () => playStream(index);
+    container.appendChild(card);
+});
+
+// Jouer le premier flux par défaut
+playStream(0);
+</script>
+
+</body>
+</html>

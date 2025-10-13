@@ -77,17 +77,15 @@ tv-multistream/
 
 
 
-👨🏽‍💻 Creator
+👤 Autor 
 
-Lasme Seth Joseph Messi Emmanuel
+Project created by Lasme Seth Joseph Messi Emmanuel
 
-Student, Terminale C, Côte d’Ivoire 🇨🇮
+High school senior (Terminale C), Côte d’Ivoire
 
-Innovator & Future Engineer
+Passionate about mechanics, aeronautics, and technological innovation
 
-Email: 
-lasmesethjosephmessi7002@gmail.com
-
+contact : lasmesethjosephmessi7002@gmail.com
 
 
 
